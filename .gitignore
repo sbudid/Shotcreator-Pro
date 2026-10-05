@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.env
+
+# Video / media outputs (never commit renders)
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.mp3
+*.m4a
+*.wav
+*.png
+*.jpg
+*.jpeg
+
+# Queue / worker state
+*.done.json
+*.error.json
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+apps/api/data/

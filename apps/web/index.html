@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShotCreator — Screenshot jadi Video Vertikal</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <h1>🎬 ShotCreator</h1>
+    <p class="tagline">Ubah screenshot cerita jadi video vertikal 1080×1920 siap upload</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div id="status" class="status hidden" role="status"></div>
+
+  <!-- 1. Screenshot -->
+  <section class="card">
+    <h2>1. Screenshot</h2>
+    <p class="hint">Upload 1 atau lebih gambar screenshot cerita. Urutan sesuai urutan upload.</p>
+    <label class="filebtn" for="imageInput">＋ Pilih gambar</label>
+    <input type="file" id="imageInput" accept="image/*" multiple hidden>
+    <div id="thumbs" class="thumbs"></div>
+  </section>
+
+  <!-- 2. Teks hook -->
+  <section class="card">
+    <h2>2. Teks hook</h2>
+    <p class="hint">Satu baris per baris. Teks atas tampil di atas video, teks bawah di bawah.</p>
+    <label for="topLines">Teks atas</label>
+    <textarea id="topLines" rows="3" placeholder="Contoh:&#10;SETAHUN NAIK TURUN,&#10;HARI INI LUNAS"></textarea>
+    <label for="botLines">Teks bawah</label>
+    <textarea id="botLines" rows="3" placeholder="Contoh:&#10;BACA SAMPAI HABIS,&#10;BIKIN MERINDING"></textarea>
+  </section>
+
+  <!-- 3. AI -->
+  <section class="card" id="aiCard">
+    <h2>3. Bantuan AI <span class="badge">opsional</span></h2>
+    <p class="hint" id="aiOfflineHint" hidden>⚠️ Server AI tidak terjangkau dari web ini — tulis hook manual di atas.</p>
+    <p class="hint">Upload screenshot di bagian 1, lalu klik tombol — AI otomatis melihat gambarnya dan buatkan hook.</p>
+    <button id="btnGenHooks" class="btn secondary" type="button">✨ Buatkan hook</button>
+    <p class="hint">Hasilnya masuk ke kolom teks di atas — bisa kamu edit dulu sebelum render.</p>
+  </section>
+
+  <!-- 4. Audio -->
+  <section class="card">
+    <h2>4. Audio <span class="badge">opsional</span></h2>
+    <p class="hint">MP3 musik latar / murottal / voiceover. Kosongkan kalau tanpa audio.</p>
+    <label class="filebtn" for="audioInput">🎵 Pilih file audio</label>
+    <input type="file" id="audioInput" accept="audio/*" hidden>
+    <div id="audioInfo" class="audioinfo hidden">
+      <span id="audioName"></span>
+      <button id="btnClearAudio" class="linkbtn" type="button">hapus</button>
+    </div>
+  </section>
+
+  <!-- 5. Render -->
+  <section class="card">
+    <h2>5. Render</h2>
+    <p class="hint">Video dirender langsung di perangkatmu (tanpa server). Output MP4 di Chrome/Safari/Edge, WebM di Firefox.</p>
+    <button id="btnRender" class="btn primary" type="button">🚀 Render video</button>
+  </section>
+
+  <!-- 6. Hasil -->
+  <section id="jobCard" class="card hidden">
+    <h2>Hasil</h2>
+    <div class="jobstatus"><span id="jobLabel">Menunggu…</span></div>
+    <div class="progress"><div id="progressBar" class="progress-bar"></div></div>
+    <video id="preview" class="preview hidden" controls playsinline></video>
+    <a id="btnDownload" class="btn primary hidden" href="#" download="shotcreator.mp4">⬇️ Download video</a>
+  </section>
+
+</main>
+
+<footer class="wrap foot">
+  <p>ShotCreator · bikin video hook dalam sekejap ⚡</p>
+</footer>
+
+<!-- Layar kunci: password buyer untuk pakai AI (HARUS di atas <script> agar JS bisa akses) -->
+<div id="lockScreen" class="lock hidden">
+  <div class="lock-card">
+    <div class="lock-emoji">🔒</div>
+    <h2>ShotCreator Premium</h2>
+    <p>Masukkan password buyer untuk memakai AI hook generator.</p>
+    <input id="lockPass" type="password" placeholder="Password" autocomplete="off" />
+    <button id="lockBtn" class="btn primary">Buka</button>
+    <p id="lockErr" class="lock-err hidden">Password salah. Coba lagi.</p>
+    <p class="lock-hint">Belum punya? Hubungi admin untuk berlangganan Rp 10rb/bulan.</p>
+  </div>
+</div>
+
+<script src="render-client.js?v=paywall2"></script>
+<script src="app.js?v=paywall2"></script>
+</body>
+</html>
