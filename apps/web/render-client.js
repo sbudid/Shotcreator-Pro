@@ -145,13 +145,14 @@ async function crRender(opts) {
   const topSize = crFitFont(ctx, topLines, t.TOP_SIZE);
   const botSize = crFitFont(ctx, botLines, t.BOT_SIZE);
 
-  // siapkan audio (kalau ada): ukur durasi utk perilaku -shortest
-  let audioEl = null, audioCtx = null, audioDest = null, audioDur = Infinity;
+  // siapkan audio (kalau ada): putar berulang supaya mengisi seluruh durasi
+  // video — video tidak pernah dipotong mengikuti durasi audio.
+  let audioEl = null, audioCtx = null, audioDest = null;
   if (audioDataUrl) {
     audioEl = new Audio(audioDataUrl);
     audioEl.preload = "auto";
+    audioEl.loop = true;
     await new Promise((res) => { audioEl.onloadedmetadata = res; audioEl.onerror = res; });
-    if (isFinite(audioEl.duration) && audioEl.duration > 0) audioDur = audioEl.duration;
     try {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       const src = audioCtx.createMediaElementSource(audioEl);
@@ -160,7 +161,7 @@ async function crRender(opts) {
       src.connect(audioCtx.destination);
     } catch (e) { audioCtx = null; audioDest = null; }
   }
-  const recSecs = Math.min(totalSecs, audioDur);
+  const recSecs = totalSecs;
 
   const stream = canvas.captureStream(t.FPS);
   const tracks = [...stream.getVideoTracks()];
